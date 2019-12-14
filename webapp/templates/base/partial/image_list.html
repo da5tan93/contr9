@@ -1,0 +1,11 @@
+{% for image in images %}
+    <h2>{{ image.sign }}</h2>
+    <p>Created by {{ image.author }}
+        at {{ image.created_at|date:'d.m.Y H:i:s' }}</p>
+    <p>
+        <a href="{% url 'webapp:image_view' image.pk %}">More...</a>
+        <a href="{% url 'webapp:image_update' image.pk %}">Edit</a>
+        <a href="{% url "webapp:image_delete" image.pk %}">Delete</a>
+    </p>
+    <hr/>
+{% endfor %}

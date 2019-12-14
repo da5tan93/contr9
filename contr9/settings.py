@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webapp',
-    'comm',
     'accounts',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 

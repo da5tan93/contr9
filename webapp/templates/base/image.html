@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ image.title }}{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url "webapp:image_update" image.pk %}">Edit</a></li>
+    <li><a href="{% url "webapp:image_delete" image.pk %}">Delete</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ image.sign }}</h1>
+    <p>Created by {{ image.author }}
+        at {{ image.created_at|date:'d.m.Y H:i:s' }}</p>
+    <div class="pre">{{ image.image }}</div>
+    <hr/>
+    <h3>Comments:</h3>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    <div class="comment-list">
+        {% for comment in comments %}
+            <div class="comment">
+                <p>{{ comment.author }} commented at {{ comment.created_at|date:'d.m.Y H:i:s' }}</p>
+                <div class="pre">{{ comment.text }}</div>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    <form action="{% url 'webapp:image_comment_create' image.pk %}" method="POST" id="add_comment">
+        {% include 'partial/form.html' with button_text='Add' %}
+    </form>
+{% endblock %}

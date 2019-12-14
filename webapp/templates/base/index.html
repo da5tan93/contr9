@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'webapp:image_add' %}">Add Image</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Images:</h1>
+        {% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}
+        <hr/>
+        {% include 'base/partial/image_list.html' %}
+        {% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}
+    </section>
+{% endblock %}
+
