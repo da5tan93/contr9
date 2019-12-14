@@ -10,10 +10,10 @@ class Image(models.Model):
     sign = models.CharField(max_length=200, null=False, blank=False, verbose_name='Подпись')
     date_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата-время создания')
     likes = GenericRelation(Comment, default=0)
-    author = models.ForeignKey(User, null=False, blank=False, verbose_name='Автор')
+    author = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE, verbose_name='Автор')
 
     def __str__(self):
-        return self.sign
+        return self.image
 
     @property
     def total_likes(self):

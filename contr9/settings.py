@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webapp',
     'comm',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = 'accounts:login'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '41f9082f0e3cc9'  # ваш user
+EMAIL_HOST_PASSWORD = '698af12d2d2917'  # ваш пароль
+EMAIL_PORT = '2525'
+
+HOST_NAME = 'localhost:8000'
