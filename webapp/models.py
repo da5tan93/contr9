@@ -23,7 +23,7 @@ class Comment(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField(upload_to='product_images',null=True, blank=True, verbose_name='Фотография')
+    image = models.ImageField(upload_to='product_images', null=False, blank=True, verbose_name='Фотография')
     sign = models.CharField(max_length=200, null=False, blank=False, verbose_name='Подпись')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
@@ -31,7 +31,7 @@ class Image(models.Model):
     author = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE, verbose_name='Автор')
 
     def __str__(self):
-        return self.image
+        return str(self.image)
 
     @property
     def total_likes(self):

@@ -8,9 +8,7 @@
         {% endif %}
 
         <span>
-            Страница <label>
-               <input class="page-input" type="text" name="page" value="{{ page_obj.number }}" maxlength="5">
-            </label> из {{ paginator.num_pages }}.
+            Страница <input class="page-input" type="text" name="page" value="{{ page_obj.number }}" maxlength="5"> из {{ paginator.num_pages }}.
         </span>
 
         {% if page_obj.has_next %}

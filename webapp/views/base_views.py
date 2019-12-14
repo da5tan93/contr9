@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.http import urlencode
 from django.views import View
 from django.views.generic import TemplateView
+from webapp.models import Image, Comment
 
 
 class ListView(TemplateView):

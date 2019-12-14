@@ -51,6 +51,7 @@ class ImageCreateView(CreateView):
     template_name = 'base/create.html'
     form_class = ImageForm
 
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('webapp:accounts:login')
@@ -77,6 +78,6 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('webapp:index')
 
     def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.save()
+        image = self.object = self.get_object()
+        image.delete()
         return redirect(self.get_success_url())

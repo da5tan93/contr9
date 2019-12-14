@@ -4,42 +4,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import ListView, CreateView, \
-    UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView
 from webapp.forms import CommentForm, ImageCommentForm
 from webapp.models import Comment, Image
 
 
 User = get_user_model()
-
-
-def add_like(obj, user):
-    obj_type = ContentType.objects.get_for_model(obj)
-    like, is_created = Comment.objects.get_or_create(
-        content_type=obj_type, object_id=obj.id, author=user)
-    return like
-
-
-def remove_like(obj, user):
-    obj_type = ContentType.objects.get_for_model(obj)
-    Comment.objects.filter(
-        content_type=obj_type, object_id=obj.id, author=user
-    ).delete()
-
-
-def is_fan(obj, user) -> bool:
-    if not user.is_authenticated:
-        return False
-    obj_type = ContentType.objects.get_for_model(obj)
-    likes = Comment.objects.filter(
-        content_type=obj_type, object_id=obj.id, author=user)
-    return likes.exists()
-
-
-def get_fans(obj):
-    obj_type = ContentType.objects.get_for_model(obj)
-    return User.objects.filter(
-        likes__content_type=obj_type, likes__object_id=obj.id)
 
 
 class CommentListView(ListView):
@@ -73,6 +43,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     template_name = 'comment/create.html'
     form_class = CommentForm
 
+
     def get_success_url(self):
         return reverse('webapp:image_view', kwargs={'pk': self.object.image.pk})
 
@@ -89,3 +60,32 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('webapp:image_view', kwargs={'pk': self.object.image.pk})
+
+
+def add_like(obj, user):
+    obj_type = ContentType.objects.get_for_model(obj)
+    like, is_created = Comment.objects.get_or_create(
+        content_type=obj_type, object_id=obj.id, author=user)
+    return like
+
+
+def remove_like(obj, user):
+    obj_type = ContentType.objects.get_for_model(obj)
+    Comment.objects.filter(
+        content_type=obj_type, object_id=obj.id, author=user
+    ).delete()
+
+
+def is_fan(obj, user) -> bool:
+    if not user.is_authenticated:
+        return False
+    obj_type = ContentType.objects.get_for_model(obj)
+    likes = Comment.objects.filter(
+        content_type=obj_type, object_id=obj.id, author=user)
+    return likes.exists()
+
+
+def get_fans(obj):
+    obj_type = ContentType.objects.get_for_model(obj)
+    return User.objects.filter(
+        likes__content_type=obj_type, likes__object_id=obj.id)

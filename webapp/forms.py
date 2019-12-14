@@ -11,8 +11,8 @@ class ImageForm(forms.ModelForm):
 
     def clean_sign(self):
         sign = self.cleaned_data['sign']
-        if len(sign) <= 10:
-            raise ValidationError('This field value should be more than 10 symbols long.',
+        if len(sign) <= 3:
+            raise ValidationError('This field value should be more than 3 symbols long.',
                                   code='too_short')
         return sign
 

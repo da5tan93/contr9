@@ -16,4 +16,5 @@ urlpatterns = [
     path('image/<int:pk>/add-comment/', CommentForImageCreateView.as_view(), name='image_comment_create')
 ]
 
+
 app_name = 'webapp'
